@@ -1,6 +1,5 @@
 package com.imooc.controller;
 
-import com.imooc.controller.superadmin.HeadLineOperationController;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,7 +19,7 @@ public class DispatcherServlet extends HttpServlet {
         if (req.getServletPath() == "/frontend/getmainpageinfo" && req.getMethod() == "GET"){
             new MainPageController().getMainPageInfo(req, resp);
         } else if(req.getServletPath() == "/superadmin/addheadline" && req.getMethod() == "POST"){
-            new HeadLineOperationController().addHeadLine(req, resp);
+//            new HeadLineOperationController().addHeadLine(req, resp);
         }
     }
 }

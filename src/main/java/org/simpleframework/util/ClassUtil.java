@@ -2,6 +2,9 @@ package org.simpleframework.util;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
@@ -77,7 +80,30 @@ public class ClassUtil {
             }
         }
     }
-
+    public static void setField(Field field, Object object, Object value, boolean accessible){
+        field.setAccessible(accessible);
+        try {
+            field.set(object,value);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+    public static <T> T newInstance(Class<?> clazz,boolean accessible){
+        try {
+            Constructor<?> constructor = clazz.getDeclaredConstructor();
+            constructor.setAccessible(accessible);
+            return (T)constructor.newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     public static Class<?> loadClass(String className){
         try {
